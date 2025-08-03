@@ -1,1 +1,1 @@
-# LangChain-Crash-Course-For-Beginners
+# LLM Tutorial
