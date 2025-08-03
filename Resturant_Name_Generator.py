@@ -20,9 +20,9 @@ except Exception as ex:
 def generate_resturant_name_and_items(cuisine):
     
     prompt_template_name = PromptTemplate(
-    input_variables=['cuisine'],
-    template="I want to opan a resturant for {cuisine} food. Suggest a fancy name for this. Only one name"
-        )
+        input_variables=['cuisine'],
+        template="I want to opan a resturant for {cuisine} food. Suggest a fancy name for this. Only one name"
+    )
 
     name_chain = LLMChain(llm=model, prompt=prompt_template_name, output_key="resturant_name")
 
@@ -43,9 +43,12 @@ st.title("Resturant Name Generator")
 cuisine = st.sidebar.selectbox("Pick a Cuisine", options=("Uzbek", "Indian", "Italian", "Mexican", "American"))
 
 if cuisine:
-    response = generate_resturant_name_and_items(cuisine=cuisine)
-    st.header(response["resturant_name"].strip())
-    menu_items = response['menu_items'].strip().split(",")
-    st.write("**Menu Items**")
-    for item in menu_items:
-        st.write("-", item)
+    try:
+        response = generate_resturant_name_and_items(cuisine=cuisine)
+        st.header(response["resturant_name"].strip())
+        menu_items = response['menu_items'].strip().split(",")
+        st.write("**Menu Items**")
+        for item in menu_items:
+            st.write("-", item)
+    except:
+        st.error("Model bilan aloqa mavjud emas. Iltimos API kalitni kiriting!")
