@@ -25,4 +25,5 @@ if prompt := st.chat_input("Ask your question"):
     messages.chat_message("user").write(prompt)
     chain = get_qa_chain()
     response = chain(prompt)
+
     messages.chat_message("assistant").write(response["result"])
